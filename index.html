@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kudos Creators Awards | People's Choice</title>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
+
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', sans-serif; background: #000; color: #fff; min-height: 100vh; overflow-x: hidden; }
+        .container { width: 100%; max-width: 1100px; margin: 0 auto; padding: 30px 15px; }
+        
+        /* HEADER */
+        .header { display: flex; justify-content: center; margin-bottom: 40px; }
+        .brand { font-family: 'Playfair Display', serif; color: #bfa76a; font-size: 24px; font-weight: 700; letter-spacing: 1px; }
+
+        /* HERO */
+        .hero { display: grid; grid-template-columns: 1fr; gap: 40px; align-items: center; margin-bottom: 80px; }
+        .hero-text { text-align: center; }
+        .hero-text h1 { font-family: 'Playfair Display', serif; font-size: 38px; line-height: 1.1; margin-bottom: 15px; }
+        .hero-text h1 span { color: #bfa76a; font-style: italic; }
+        .hero-text p { font-size: 15px; color: #888; max-width: 500px; margin: 0 auto; line-height: 1.6; }
+        .buttons { display: flex; gap: 12px; margin-top: 30px; justify-content: center; }
+        .btn { padding: 14px 24px; border-radius: 30px; text-decoration: none; font-size: 13px; font-weight: 600; cursor: pointer; border: none; transition: 0.3s; }
+        .primary { background: #bfa76a; color: #000; }
+        .secondary { border: 1px solid #bfa76a; color: #fff; background: transparent; }
+
+        /* CAROUSEL */
+        .carousel-viewport { width: 100vw; margin-left: -15px; overflow: hidden; position: relative; mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent); }
+        .slider-track { display: flex; gap: 15px; width: max-content; will-change: transform; padding: 10px 0; }
+        .card { flex: 0 0 170px; height: 230px; border-radius: 15px; padding: 20px; display: flex; flex-direction: column; justify-content: flex-end; background-size: cover; background-position: center; position: relative; overflow: hidden; border: 1px solid rgba(191, 167, 106, 0.2); }
+        .card::after { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 60%, transparent 100%); z-index: 1; }
+        .card h3, .card span { position: relative; z-index: 2; }
+        .card h3 { font-size: 14px; margin-bottom: 4px; }
+        .card span { font-size: 10px; color: #bfa76a; text-transform: uppercase; font-weight: 600; }
+
+        /* VOTING */
+        .voting-section { border-top: 1px solid #222; padding-top: 50px; }
+        .section-header { text-align: center; margin-bottom: 40px; }
+        .section-title { font-family: 'Playfair Display', serif; font-size: 32px; color: #bfa76a; margin-bottom: 10px; }
+        .section-subtitle { color: #888; font-size: 14px; }
+        .category-group { margin-bottom: 50px; }
+        .cat-header { display: flex; align-items: center; gap: 12px; margin-bottom: 20px; }
+        .cat-header h2 { font-size: 13px; color: #fff; text-transform: uppercase; letter-spacing: 2px; }
+        .cat-line { flex-grow: 1; height: 1px; background: linear-gradient(to right, #bfa76a, transparent); }
+        .contestant-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px; }
+        .contestant-card { background: #0a0a0a; border-radius: 12px; padding: 15px 10px; border: 1px solid #1a1a1a; text-align: center; transition: 0.3s; }
+        .avatar { width: 75px; height: 75px; background: #111; border-radius: 50%; border: 2px solid #bfa76a; margin: 0 auto 10px; object-fit: cover; }
+        .contestant-name { font-weight: 600; font-size: 14px; margin-bottom: 2px; display: block; }
+        .contestant-handle { font-size: 10px; color: #bfa76a; margin-bottom: 12px; display: block; }
+        .vote-btn { width: 100%; padding: 10px 5px; border-radius: 8px; border: 1px solid #bfa76a; background: transparent; color: #bfa76a; font-weight: 700; cursor: pointer; text-transform: uppercase; font-size: 9px; transition: 0.3s; }
+        .vote-btn.voted { background: #bfa76a; color: #000; }
+
+        @media (min-width: 850px) {
+            .hero { grid-template-columns: 1fr 1fr; text-align: left; }
+            .hero-text { text-align: left; }
+            .hero-text h1 { font-size: 52px; }
+            .buttons { justify-content: flex-start; }
+            .carousel-viewport { width: 100%; margin-left: 0; }
+            .contestant-grid { grid-template-columns: repeat(4, 1fr); }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header class="header">
+        <div class="brand">KUDOS AWARDS</div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-text">
+            <h1>The <span>People's</span> Choice Awards</h1>
+            <p>Celebrating the next generation of digital excellence. Your voice, your choice. Vote for free today.</p>
+            <div class="buttons">
+                <a href="#vote" class="btn primary">Start Voting</a>
+                <a href="#" class="btn secondary">Learn More</a>
+            </div>
+        </div>
+
+        <div class="carousel-viewport">
+            <div class="slider-track" id="track">
+                <div class="card" style="background-image: url('https://images.unsplash.com/photo-1558655146-d09347e92766?auto=format&fit=crop&q=80&w=400')"><h3>Design & Art</h3><span>Creative</span></div>
+                <div class="card" style="background-image: url('https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?auto=format&fit=crop&q=80&w=400')"><h3>Creative Editing</h3><span>Visuals</span></div>
+                <div class="card" style="background-image: url('https://images.unsplash.com/photo-1495521821757-a1efb6729352?auto=format&fit=crop&q=80&w=400')"><h3>Food & Lifestyle</h3><span>Culture</span></div>
+            </div>
+        </div>
+    </section>
+
+<section class="voting-section" id="vote">
+    <div class="section-header">
+        <h2 class="section-title">Cast Your Vote</h2>
+        <p class="section-subtitle">Support your favorite creators. One vote per category.</p>
+    </div>
+
+    <div class="category-group">
+        <div class="cat-header">
+            <h2>🎨 Design & Art</h2>
+            <div class="cat-line"></div>
+        </div>
+        <div class="contestant-grid">
+            <div class="contestant-card">
+                <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&q=80&w=200" class="avatar">
+                <span class="contestant-name">Maya Koda</span>
+                <span class="contestant-handle">@maya_design</span>
+                <button class="vote-btn" onclick="castFreeVote(this)">Vote</button>
+            </div>
+            <div class="contestant-card">
+                <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&q=80&w=200" class="avatar">
+                <span class="contestant-name">Julian Ink</span>
+                <span class="contestant-handle">@ink_flow</span>
+                <button class="vote-btn" onclick="castFreeVote(this)">Vote</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="category-group">
+        <div class="cat-header">
+            <h2>🎬 Creative Content & Editing</h2>
+            <div class="cat-line"></div>
+        </div>
+        <div class="contestant-grid">
+            <div class="contestant-card">
+                <img src="https://images.unsplash.com/photo-1438761681033-6461ffad8d80?auto=format&fit=crop&q=80&w=200" class="avatar">
+                <span class="contestant-name">Sarah Frames</span>
+                <span class="contestant-handle">@frame_cut</span>
+                <button class="vote-btn" onclick="castFreeVote(this)">Vote</button>
+            </div>
+            <div class="contestant-card">
+                <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?auto=format&fit=crop&q=80&w=200" class="avatar">
+                <span class="contestant-name">Liam Visuals</span>
+                <span class="contestant-handle">@liam_lens</span>
+                <button class="vote-btn" onclick="castFreeVote(this)">Vote</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="category-group">
+        <div class="cat-header">
+            <h2>🍳 Food & Lifestyle</h2>
+            <div class="cat-line"></div>
+        </div>
+        <div class="contestant-grid">
+            <div class="contestant-card">
+                <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&q=80&w=200" class="avatar">
+                <span class="contestant-name">Chef Amara</span>
+                <span class="contestant-handle">@urban_bites</span>
+                <button class="vote-btn" onclick="castFreeVote(this)">Vote</button>
+            </div>
+            <div class="contestant-card">
+                <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&q=80&w=200" class="avatar">
+                <span class="contestant-name">David Green</span>
+                <span class="contestant-handle">@fresh_leaf</span>
+                <button class="vote-btn" onclick="castFreeVote(this)">Vote</button>
+            </div>
+        </div>
+    </div>
+
+</section>
+
+<script>
+    /* CAROUSEL */
+    const track = document.getElementById('track');
+    const cards = [...track.children];
+    cards.forEach(card => track.appendChild(card.cloneNode(true)));
+    let xPos = 0;
+    function animate() {
+        xPos -= 0.4;
+        if (Math.abs(xPos) >= track.scrollWidth / 2) xPos = 0;
+        track.style.transform = `translateX(${xPos}px)`;
+        requestAnimationFrame(animate);
+    }
+    animate();
+
+    /* FREE VOTING LOGIC */
+    function castFreeVote(btn) {
+        const name = btn.closest('.contestant-card').querySelector('.contestant-name').innerText;
+        
+        // Show success UI
+        finalizeUI(btn);
+        
+        // Optional: Trigger a small notification or log the vote
+        console.log(`Vote registered for: ${name}`);
+        alert(`Thank you! Your vote for ${name} has been counted.`);
+    }
+
+    function finalizeUI(btn) {
+        const group = btn.closest('.contestant-grid');
+        // Reset other buttons in the same category
+        group.querySelectorAll('.vote-btn').forEach(b => {
+            b.classList.remove('voted');
+            b.innerText = "Vote";
+        });
+        // Highlight chosen contestant
+        btn.classList.add('voted');
+        btn.innerText = "Voted ✓";
+    }
+</script>
+
+</body>
+</html>
